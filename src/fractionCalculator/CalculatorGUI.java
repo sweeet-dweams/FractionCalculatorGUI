@@ -5,6 +5,8 @@ import javax.swing.JComboBox;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
+import javax.swing.JScrollPane;
+import javax.swing.JTextArea;
 import javax.swing.JTextField;
 
 import java.awt.GridLayout;
@@ -22,7 +24,7 @@ public class CalculatorGUI implements ActionListener {
     private JTextField denominator1;
     private JTextField numerator2;
     private JTextField denominator2;
-    private JTextField resultField;
+    private JTextArea resultArea;
     private JComboBox<String> operationsBox;
     private JButton calculateButton;
 
@@ -46,8 +48,13 @@ public class CalculatorGUI implements ActionListener {
         this.denominator1 = new JTextField();
         this.numerator2 = new JTextField();
         this.denominator2 = new JTextField();
-        this.resultField = new JTextField();
-        resultField.setEditable(false); //Makes the result uneditable.
+        this.resultArea = new JTextArea(3, 20);
+        resultArea.setEditable(false);
+        resultArea.setLineWrap(true);
+        resultArea.setWrapStyleWord(true);
+
+        JScrollPane scrollPane = new JScrollPane(resultArea);
+        scrollPane.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_AS_NEEDED);
         
         //Creates the drop down menu for the operations.
         String[] operations = {"+", "-", "*", "/"};
@@ -71,7 +78,7 @@ public class CalculatorGUI implements ActionListener {
         calculatorPanel.add(calculateButton);
         calculatorPanel.add(operationsBox);
         calculatorPanel.add(new JLabel(" "));
-        calculatorPanel.add(resultField);
+        calculatorPanel.add(resultArea);
 
         calculatorGUI.add(calculatorPanel);
         calculatorGUI.setVisible(true);
@@ -112,6 +119,6 @@ public class CalculatorGUI implements ActionListener {
         // TODO Auto-generated method stub
         String operator = (String) this.operationsBox.getSelectedItem();
         Fraction answer = calculate(operator);
-        resultField.setText(answer.toDecimalString(9));
+        resultArea.setText(answer.toString());
     }
 }

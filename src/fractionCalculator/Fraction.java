@@ -421,7 +421,7 @@ class Fraction {
         if (denominator == 1) {
             return String.valueOf(numerator);
         }
-        return numerator + "/" + denominator;
+        return numerator + "  /\n" + denominator;
     }
 
     public String toLatexString() {
